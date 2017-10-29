@@ -20,7 +20,6 @@ app.get("/airlines", function(req,res){
 });
 
 app.post("/airlines", function(req,res){
-    res.send("YOU HIT THE POST ROUTE");
      // get data from form and add to airlines array
      var name = req.body.name;
      var image = req.body.image;
@@ -31,7 +30,7 @@ app.post("/airlines", function(req,res){
 });
 
 app.get("/airlines/new", function(req, res) {
-    res.render("new.ejs"); 
+    res.render("new"); 
 });
 
 app.listen(process.env.PORT, process.env.IP, function(){
