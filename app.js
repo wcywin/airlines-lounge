@@ -13,7 +13,7 @@ app.get("/airlines", function(req,res){
         {name: "Air Berlin", image: "http://imgproc.airliners.net/photos/airliners/3/8/1/4661183.jpg?v=v418abde9484"},
         {name: "LOT", image: "http://imgproc.airliners.net/photos/airliners/7/0/6/4487607.jpg?v=v485773631c9"}
     ];
-    res.render("airlines");
+    res.render("airlines", {airlines:airlines});
 });
 
 app.listen(process.env.PORT, process.env.IP, function(){

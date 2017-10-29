@@ -1,0 +1,9 @@
+<h1>This is the Airlines page!</h1>
+
+<% airlines.forEach(function(airline){ %>
+    <div>
+        <h4><%= airline.name %></h4>
+        <img src="<%= airline.image %>">
+    </div>
+    
+<% }); %>
