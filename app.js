@@ -1,46 +1,23 @@
 var express             = require("express"),
     app                 = express(),
     bodyParser          = require("body-parser"),
-    mongoose            = require("mongoose");
+    mongoose            = require("mongoose"),
+    Airline             = require("./models/airline"),
+    Comment             = require("./models/comment"),
+    seedDB              = require("./seeds");
 
+seedDB();
 mongoose.connect("mongodb://localhost/airlines", {useMongoClient: true});
 mongoose.promise = global.promise;
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 
-// SCHEMA SETUP
-var airlineSchema = new mongoose.Schema({
-    name: String,
-    image: String,
-    description: String
-});
-
-var Airline = mongoose.model("Airline", airlineSchema);
-
-// Airline.create({
-//     name: "Air Berlin", 
-//     image: "http://imgproc.airliners.net/photos/airliners/3/8/1/4661183.jpg?v=v418abde9484",
-//     description: "This airline went bankrupt on the 29.10.2017"
-//     }, function(err, airline){
-//         if(err){
-//             console.log(err);
-//         } else {
-//             console.log("Newly created Airline: ");
-//             console.log(airline);
-//         }
-// });
-
 // var airlines = [
 //         {name: "Emirates", image: "http://imgproc.airliners.net/photos/airliners/5/3/6/4645635.jpg?v=v447142f4cac"},
 //         {name: "Air Berlin", image: "http://imgproc.airliners.net/photos/airliners/3/8/1/4661183.jpg?v=v418abde9484"},
 //         {name: "LOT", image: "http://imgproc.airliners.net/photos/airliners/7/0/6/4487607.jpg?v=v485773631c9"},
-//         {name: "Emirates", image: "http://imgproc.airliners.net/photos/airliners/5/3/6/4645635.jpg?v=v447142f4cac"},
-//         {name: "Air Berlin", image: "http://imgproc.airliners.net/photos/airliners/3/8/1/4661183.jpg?v=v418abde9484"},
-//         {name: "LOT", image: "http://imgproc.airliners.net/photos/airliners/7/0/6/4487607.jpg?v=v485773631c9"},
-//         {name: "Emirates", image: "http://imgproc.airliners.net/photos/airliners/5/3/6/4645635.jpg?v=v447142f4cac"},
-//         {name: "Air Berlin", image: "http://imgproc.airliners.net/photos/airliners/3/8/1/4661183.jpg?v=v418abde9484"},
-//         {name: "LOT", image: "http://imgproc.airliners.net/photos/airliners/7/0/6/4487607.jpg?v=v485773631c9"}
+//          {name: "American Airlines", image: "http://imgproc.airliners.net/photos/airliners/5/5/5/4652555.jpg?v=v434a1f3a109"}
 // ];
 
 app.get("/", function(req,res){
@@ -82,12 +59,13 @@ app.get("/airlines/new", function(req, res) {
 // SHOW - shows more info about the airline
 app.get("/airlines/:id", function(req,res){
     //find the airline with provided id
-    Airline.findById(req.params.id, function(err, foundAirline){
+    Airline.findById(req.params.id).populate("comments").exec(function(err, foundAirline){
         if(err){
             console.log(err);
         } else {
-        //render show template of the airline
-        res.render("show", {airline: foundAirline});
+            console.log(foundAirline);
+            //render show template of the airline
+            res.render("show", {airline: foundAirline});
         }
     });
 });
