@@ -1,0 +1,19 @@
+<% include ../partials/header %>
+
+<h1><%= airline.name %></h1>
+
+<img src="<%= airline.image %>">
+
+<p><%= airline.description %></p>
+
+<p>
+    <a class="btn btn-success" href="/airlines/<%= airline._id %>/comments/new">Add a New Comment</a>
+</p>
+
+<% airline.comments.forEach(function(comment){ %>
+    <p>
+       <strong><%= comment.author %></strong> - <%= comment.text %>
+    </p>
+<% }); %>
+
+<% include ../partials/footer %>
