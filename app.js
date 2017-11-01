@@ -91,7 +91,7 @@ app.get("/airlines/:id", function(req,res){
 // =========================================
 // Comments Routes
 // =========================================
-app.get("/airlines/:id/comments/new", function(req, res) {
+app.get("/airlines/:id/comments/new", isLoggedIn, function(req, res) {
     // find airline by id
     Airline.findById(req.params.id, function(err, airline){
         if(err){
@@ -102,7 +102,7 @@ app.get("/airlines/:id/comments/new", function(req, res) {
     });
 });
 
-app.post("/airlines/:id/comments", function(req,res){
+app.post("/airlines/:id/comments", isLoggedIn, function(req,res){
     // lookup airline using ID
     Airline.findById(req.params.id, function(err, airline) {
         if(err){
@@ -165,6 +165,16 @@ app.get("/logout", function(req, res) {
     req.logout();
     res.redirect("/airlines");
 });
+
+// ====================
+// MIDDLEWARE
+// ====================
+function isLoggedIn(req,res,next){
+    if(req.isAuthenticated()){
+        return next();
+    }
+    res.redirect("/login");
+}
 
 
 // ====================
