@@ -11,7 +11,7 @@ var express             = require("express"),
 
 
 mongoose.connect("mongodb://localhost/airlines", {useMongoClient: true});
-mongoose.promise = global.promise;
+mongoose.Promise = global.Promise;
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
@@ -125,6 +125,32 @@ app.post("/airlines/:id/comments", function(req,res){
     // redirect to airline show page
 });
 
+// ====================
+// AUTH ROUTES
+// ====================
+// show register form
+app.get("/register", function(req,res){
+    res.render("register");
+});
+
+// handle sign up logic
+app.post("/register", function(req, res) {
+    var newUser = new User({username: req.body.username})
+    User.register(newUser, req.body.password, function(err, user){
+        if(err){
+            console.log(err);
+            res.render("register");
+        }
+        passport.authenticate("local")(req,res, function(){
+           res.redirect("/airlines"); 
+        });
+    });
+});
+
+
+// ====================
+// SERVER CONFIG
+// ====================
 app.listen(process.env.PORT, process.env.IP, function(){
     console.log("Airlines Lounge is running...");  
 });
