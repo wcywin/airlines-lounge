@@ -19,6 +19,18 @@ app.use(express.static(__dirname + "/public"))
 
 seedDB();
 
+// PASSPORT CONFIG
+app.use(require("express-session")({
+    secret: "Once again the Airline World is at the top!",
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 // var airlines = [
 //         {name: "Emirates", image: "http://imgproc.airliners.net/photos/airliners/5/3/6/4645635.jpg?v=v447142f4cac"},
 //         {name: "Air Berlin", image: "http://imgproc.airliners.net/photos/airliners/3/8/1/4661183.jpg?v=v418abde9484"},
