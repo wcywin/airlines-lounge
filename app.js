@@ -2,8 +2,11 @@ var express             = require("express"),
     app                 = express(),
     bodyParser          = require("body-parser"),
     mongoose            = require("mongoose"),
+    passport            = require("passport"),
+    localStrategy       = require("passport-local"),
     Airline             = require("./models/airline"),
     Comment             = require("./models/comment"),
+    User                = require("./models/user"),
     seedDB              = require("./seeds");
 
 
@@ -12,6 +15,7 @@ mongoose.promise = global.promise;
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
+app.use(express.static(__dirname + "/public"))
 
 seedDB();
 
