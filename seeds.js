@@ -28,29 +28,29 @@ function seedDB(){
     }
         console.log("removed airlines!");
         // Add few Airlines
-        data.forEach(function(seed){
-            Airline.create(seed, function(err, airline){
-                if(err){
-                    console.log(err);
-                } else {
-                    console.log("Added an Airline!");
-                    // Create a comment
-                    Comment.create(
-                        {
-                            text: "This Airline has Wi-Fi!!!", 
-                            author: "Wojciech Cywinski"
-                        }, function(err, comment){
-                            if(err){
-                                console.log(err);
-                            } else {
-                                airline.comments.push(comment);
-                                airline.save();
-                                console.log("Created new comment!");
-                            }
-                        })
-                }
-            });
-        });
+        // data.forEach(function(seed){
+        //     Airline.create(seed, function(err, airline){
+        //         if(err){
+        //             console.log(err);
+        //         } else {
+        //             console.log("Added an Airline!");
+        //             // Create a comment
+        //             Comment.create(
+        //                 {
+        //                     text: "This Airline has Wi-Fi!!!", 
+        //                     author: "Wojciech Cywinski"
+        //                 }, function(err, comment){
+        //                     if(err){
+        //                         console.log(err);
+        //                     } else {
+        //                         airline.comments.push(comment);
+        //                         airline.save();
+        //                         console.log("Created new comment!");
+        //                     }
+        //                 })
+        //         }
+        //     });
+        // });
     });
 }
 
