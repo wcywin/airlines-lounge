@@ -56,6 +56,30 @@ router.get("/:id", function(req,res){
     });
 });
 
+// EDIT Airline route
+router.get("/:id/edit", function(req, res) {
+    Airline.findById(req.params.id, function(err, foundAirline){
+        if(err){
+            res.redirect("/airlines");
+        } else {
+            res.render("airlines/edit", {airline: foundAirline}); 
+        }
+    });
+});
+
+// UPDATE Airline route
+router.put("/:id", function(req,res){
+    Airline.findByIdAndUpdate(req.params.id, req.body.airline, function(err, updatedAirline){
+        if(err){
+            res.redirect("/airlines");
+        } else {
+            res.redirect("/airlines/" + req.params.id);
+        }
+    }); 
+});
+
+
+
 // ====================
 // MIDDLEWARE
 // ====================
