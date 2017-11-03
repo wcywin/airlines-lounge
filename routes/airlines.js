@@ -79,6 +79,17 @@ router.put("/:id", function(req,res){
 });
 
 
+// DESTROY Airline route
+router.delete("/:id", function(req,res){
+     Airline.findByIdAndRemove(req.params.id, function(err){
+         if(err){
+             res.redirect("/airlines");
+         } else {
+             res.redirect("/airlines");
+         }
+     });
+});
+
 
 // ====================
 // MIDDLEWARE
