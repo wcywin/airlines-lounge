@@ -1,7 +1,5 @@
 <% include ../partials/header %>
-
-<div class="container">
-    <div class="container">
+   
         <h1 style="text-align: center;">Add a New Comment to <%= airline.name %></h1>
         <div style="width: 30%; margin: 25px auto;">
             <form action="/airlines/<%= airline._id %>/comments" method="POST">
@@ -14,8 +12,5 @@
             </form>
             <a href="/airlines">Go Back</a>
         </div>
-    </div>
-
-</div>
 
 <% include ../partials/footer %>

@@ -13,3 +13,26 @@
 .delete-form {
     display: inline;
 }
+
+.top-form-header {
+    text-align: center;
+}
+
+.form-width {
+    width: 30%;
+    margin: 25px auto;
+}
+
+@media only screen and (max-width: 1200px) and (min-width: 769px){
+    .form-width {
+        width: 50%;
+        margin: 25px auto;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .form-width {
+        width: 60%;
+        margin: 25px auto;
+    }
+}

@@ -11,7 +11,7 @@ router.get("/", function(req,res){
         if(err){
             console.log(err);
         } else {
-            res.render("airlines/index", {airlines:allAirlines, currentUser: req.user});
+            res.render("airlines/index", {airlines: allAirlines, currentUser: req.user, page: "airlines"});
         }
     });
 });
