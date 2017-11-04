@@ -68,7 +68,13 @@ router.put("/:comment_id", function(req,res){
 
 // DELETE comment
 router.delete("/:comment_id", function(req,res){
-    router.delete();
+    Comment.findByIdAndRemove(req.params.comment_id, function(err){
+        if(err){
+            res.redirect("back");
+        } else {
+            res.redirect("/airlines/" + req.params.id);
+        }
+    });
 });
 
 
