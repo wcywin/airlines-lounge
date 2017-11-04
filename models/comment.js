@@ -4,7 +4,7 @@ var commentSchema = mongoose.Schema({
     text: String,
     author: {
         id: {
-            type: mongoose.Schema.Types.ObjectId,
+            type: mongoose.Schema.Types.ObjectId, // we cannot do === with mongoose id
             ref: "User"
         },
         username: String
