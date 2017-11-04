@@ -44,6 +44,34 @@ router.post("/", isLoggedIn, function(req,res){
     })
 });
 
+// EDIT comment
+router.get("/:comment_id/edit", function(req,res){
+    Comment.findById(req.params.comment_id, function(err, foundComment) {
+        if(err){
+            res.redirect("back");
+        } else {
+            res.render("comments/edit", {airline_id: req.params.id, comment: foundComment});
+        }
+    });
+});
+
+// UPDATE comment
+router.put("/:comment_id", function(req,res){
+    Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function(err, updatedComment){
+        if(err){
+            res.redirect("back");
+        } else {
+            res.redirect("/airlines/" + req.params.id);
+        }
+    })
+});
+
+// DELETE comment
+router.delete("/:comment_id", function(req,res){
+    router.delete();
+});
+
+
 // ====================
 // MIDDLEWARE
 // ====================

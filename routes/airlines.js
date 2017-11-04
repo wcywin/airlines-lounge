@@ -57,30 +57,29 @@ router.get("/:id", function(req,res){
 });
 
 // EDIT Airline route
-router.get("/:id/edit", function(req, res) {
-    Airline.findById(req.params.id, function(err, foundAirline){
+router.get("/:id/edit", checkAirlineOwnership, function(req, res) {
+    Airline.findById(req.params.id, function(err, foundAirline) {
         if(err){
-            res.redirect("/airlines");
-        } else {
-            res.render("airlines/edit", {airline: foundAirline}); 
+            res.redirect("airlines");
         }
+        res.render("airlines/edit", {airline: foundAirline});
     });
 });
 
 // UPDATE Airline route
-router.put("/:id", function(req,res){
+router.put("/:id", checkAirlineOwnership, function(req,res){
     Airline.findByIdAndUpdate(req.params.id, req.body.airline, function(err, updatedAirline){
         if(err){
             res.redirect("/airlines");
         } else {
             res.redirect("/airlines/" + req.params.id);
         }
-    }); 
+    });
 });
 
 
 // DESTROY Airline route
-router.delete("/:id", function(req,res){
+router.delete("/:id", checkAirlineOwnership, function(req,res){
      Airline.findByIdAndRemove(req.params.id, function(err){
          if(err){
              res.redirect("/airlines");
@@ -99,6 +98,25 @@ function isLoggedIn(req,res,next){
         return next();
     }
     res.redirect("/login");
+}
+
+function checkAirlineOwnership(req, res, next) {
+    if(req.isAuthenticated()){
+        Airline.findById(req.params.id, function(err, foundAirline){
+            if(err){
+                res.redirect("/airlines");
+            } else {
+                // does user own the airline
+                if(foundAirline.author.id.equals(req.user._id)) {
+                    next();
+                } else {
+                     res.redirect("back");
+                }
+            }
+        });
+    } else {
+        res.redirect("back");
+    }
 }
 
 module.exports = router;
