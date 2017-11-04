@@ -2,6 +2,7 @@ var express     = require("express");
 var router      = express.Router();
 var passport    = require("passport");
 var User        = require("../models/user");
+var middleware  = require("../middleware");
 
 // root route
 router.get("/", function(req,res){
@@ -21,11 +22,12 @@ router.post("/register", function(req, res) {
     var newUser = new User({username: req.body.username})
     User.register(newUser, req.body.password, function(err, user){
         if(err){
-            console.log(err);
-            res.render("register");
+            // req.flash("error", err.message);
+            return res.render("register", {error: err.message});
         }
         passport.authenticate("local")(req,res, function(){
-           res.redirect("/airlines"); 
+            req.flash("success", "Welcome to Airlines Lounge " + user.username + "!");
+            res.redirect("/airlines"); 
         });
     });
 });
@@ -39,24 +41,17 @@ router.get("/login", function(req, res) {
 router.post("/login", passport.authenticate("local", 
     {
         successRedirect: "/airlines",
-        failureRedirect: "/login"
+        failureRedirect: "/login",
+        failureFlash: true
     }), function(req, res) {
 });
 
 // handling logout
 router.get("/logout", function(req, res) {
     req.logout();
+    req.flash("success", "Logged you out!");
     res.redirect("/airlines");
 });
 
-// ====================
-// MIDDLEWARE
-// ====================
-function isLoggedIn(req,res,next){
-    if(req.isAuthenticated()){
-        return next();
-    }
-    res.redirect("/login");
-}
 
 module.exports = router;

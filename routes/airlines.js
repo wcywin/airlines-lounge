@@ -62,6 +62,7 @@ router.get("/:id", function(req,res){
 router.get("/:id/edit", middleware.checkAirlineOwnership, function(req, res) {
     Airline.findById(req.params.id, function(err, foundAirline) {
         if(err){
+            req.flash("error", "You don't have permission to edit the Airline!");
             res.redirect("airlines");
         }
         res.render("airlines/edit", {airline: foundAirline});

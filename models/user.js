@@ -6,6 +6,13 @@ var UserSchema = new mongoose.Schema({
     password: String
 });
 
-UserSchema.plugin(passportLocalMongoose);
+var options = {
+    errorMessages: {
+        incorrectPasswordError: "Password is incorrect",
+        incorrectUsernameError: "Username is incorrect"
+    }
+};
+
+UserSchema.plugin(passportLocalMongoose, options);
 
 module.exports = mongoose.model("User", UserSchema);

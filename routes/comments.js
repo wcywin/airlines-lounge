@@ -26,11 +26,12 @@ router.post("/", middleware.isLoggedIn, function(req,res){
         } else {
             Comment.create(req.body.comment, function(err, comment){
                 if(err){
+                    req.flash("error", "Something went wrong...");
                     console.log(err);
                 } else {
                     // add username and id to comment
-                   comment.author.id = req.user._id;
-                   comment.author.username = req.user.username;
+                    comment.author.id = req.user._id;
+                    comment.author.username = req.user.username;
                     // save comment
                     comment.save();
                     //push a new comment into database
@@ -38,6 +39,7 @@ router.post("/", middleware.isLoggedIn, function(req,res){
                     // connect new comment to airline
                     airline.save();
                     // redirect to airline show page
+                    req.flash("success", "Successfully added your comment!");
                     res.redirect('/airlines/' + airline._id);
                 }
             });
@@ -73,6 +75,7 @@ router.delete("/:comment_id", middleware.checkCommentOwnership, function(req,res
         if(err){
             res.redirect("back");
         } else {
+            req.flash("success", "Comment deleted!");
             res.redirect("/airlines/" + req.params.id);
         }
     });
