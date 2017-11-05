@@ -28,6 +28,7 @@ app.use(express.static(__dirname + "/public"))
 app.use(methodOverride("_method"));
 app.use(flash()); // must come before the passport config
 // seedDB(); // seed the database
+app.locals.moment = require("moment");
 
 // ====================
 // PASSPORT CONFIG
