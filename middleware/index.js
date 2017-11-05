@@ -18,13 +18,13 @@ middlewareObj.checkAirlineOwnership = function(req, res, next){
                     next();
                 } else {
                     req.flash("error", "You don't have permission to do that!");
-                    res.redirect("back");
+                    res.redirect("/airlines");
                 }
             }
         });
     } else {
         req.flash("error", "You need to be logged in to do that!");
-        res.redirect("back");
+        res.redirect("/airlines");
     }
 }
 

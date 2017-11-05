@@ -1,9 +1,42 @@
-<% include partials/header %>
-
-<h1>Landing Page!</h1>
-
-<p>Welcome to Airlines Lounge</p>
-
-<a href="/airlines">View All Airlines</a>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Airline Lounge</title>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="/stylesheets/landing.css" rel="stylesheet" type="text/css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript" async></script>
+    </head>
+    <body>
+    
+    <div class="container">
+        <% if(error && error.length > 0){ %>
+            <div class="alert alert-danger" role="alert">
+                <%= error %>
+            </div>
+        <% } %>
+        <% if(success && success.length > 0){ %>
+            <div class="alert alert-success" role="alert">
+                <%= success %>
+            </div>
+        <% } %>
+    </div>
+    
+    <div class="container">
+        <div id="landing-header" class="row">
+            <div class="col-md-12">
+                <h1>Welcome to Airlines Lounge!</h1>
+		        <a href="/airlines" id="landing-button" class="btn btn-lg">View All Airlines</a>
+            </div>
+        </div>
+    </div>
+    
+    <ul class="slideshow">
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
 
 <% include partials/footer %>

@@ -20,13 +20,14 @@ router.get("/", function(req,res){
 router.post("/", middleware.isLoggedIn, function(req,res){
      // get data from form and add to airlines array
      var name = req.body.name;
+     var rating = req.body.rating;
      var image = req.body.image;
      var desc = req.body.description;
      var author = {
          id: req.user._id,
          username: req.user.username
      }
-     var newAirline = {name: name, image: image, description: desc, author: author};
+     var newAirline = {name: name, rating: rating, image: image, description: desc, author: author};
     // Create a new Airline and save to DB
      Airline.create(newAirline, function(err, newlyCreated){
          if(err){
@@ -63,7 +64,7 @@ router.get("/:id/edit", middleware.checkAirlineOwnership, function(req, res) {
     Airline.findById(req.params.id, function(err, foundAirline) {
         if(err){
             req.flash("error", "You don't have permission to edit the Airline!");
-            res.redirect("airlines");
+            res.redirect("/airlines");
         }
         res.render("airlines/edit", {airline: foundAirline});
     });

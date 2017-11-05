@@ -2,6 +2,7 @@ var mongoose = require("mongoose");
 
 var airlineSchema = new mongoose.Schema({
     name: String,
+    rating: String,
     image: String,
     description: String,
     author: {
