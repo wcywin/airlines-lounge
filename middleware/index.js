@@ -14,7 +14,7 @@ middlewareObj.checkAirlineOwnership = function(req, res, next){
                 res.redirect("/airlines");
             } else {
                 // does user own the airline
-                if(foundAirline.author.id.equals(req.user._id)) {
+                if(foundAirline.author.id.equals(req.user._id) || req.user.isAdmin) {
                     next();
                 } else {
                     req.flash("error", "You don't have permission to do that!");
@@ -36,7 +36,7 @@ middlewareObj.checkCommentOwnership = function(req, res, next){
                 res.redirect("back");
             } else {
                 // does user own the comment
-                if(foundComment.author.id.equals(req.user._id)) {
+                if(foundComment.author.id.equals(req.user._id) || req.user.isAdmin) {
                     next();
                 } else {
                     req.flash("error", "You don't have permission to do that!");
