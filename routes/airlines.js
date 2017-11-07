@@ -2,6 +2,7 @@ var express = require("express");
 var router  = express.Router();
 var Airline = require("../models/airline");
 var middleware = require("../middleware"); // we don't have to "/index.js" because this is the default file in any dir
+var geocoder = require("geocoder");
 
 
 // index route
@@ -27,17 +28,33 @@ router.post("/", middleware.isLoggedIn, function(req,res){
          id: req.user._id,
          username: req.user.username
      }
-     var newAirline = {name: name, rating: rating, image: image, description: desc, author: author};
-    // Create a new Airline and save to DB
-     Airline.create(newAirline, function(err, newlyCreated){
-         if(err){
-             console.log(err);
-         } else {
+     // Geocoder for the maps
+     geocoder.geocode(req.body.location, function(err, data){
+        var lat = data.results[0].geometry.location.lat;
+        var lng = data.results[0].geometry.location.lng;
+        var location = data.results[0].formatted_address;
+        var newAirline = {name: name, rating: rating, image: image, description: desc, author: author, location: location, lat: lat, lng: lng};
+        // CREATE a new airline and save ti DB
+        Airline.create(newAirline, function(err, newlyCreated){
+            if(err){
+                console.log(err);
+            } else {
              // redirects back to airlines page
-             console.log(newlyCreated);
-             res.redirect("/airlines");
-         }
-     });
+                console.log(newlyCreated);
+                res.redirect("/airlines");
+            }
+        });
+    //  var newAirline = {name: name, rating: rating, image: image, description: desc, author: author};
+    // Create a new Airline and save to DB
+    //  Airline.create(newAirline, function(err, newlyCreated){
+    //      if(err){
+    //          console.log(err);
+    //      } else {
+    //          // redirects back to airlines page
+    //          console.log(newlyCreated);
+    //          res.redirect("/airlines");
+    //      }
+    });
 });
 
 // new route
@@ -71,15 +88,32 @@ router.get("/:id/edit", middleware.checkAirlineOwnership, function(req, res) {
 });
 
 // UPDATE Airline route
-router.put("/:id", middleware.checkAirlineOwnership, function(req,res){
-    Airline.findByIdAndUpdate(req.params.id, req.body.airline, function(err, updatedAirline){
-        if(err){
-            res.redirect("/airlines");
-        } else {
-            res.redirect("/airlines/" + req.params.id);
-        }
+router.put("/:id", middleware.checkAirlineOwnership, function(req, res){
+    geocoder.geocode(req.body.airline.location, function(err, data){
+        var lat = data.results[0].geometry.location.lat;
+        var lng = data.results[0].geometry.location.lng;
+        var location = data.results[0].formatted_address;
+        var newData = {name: req.body.airline.name, image: req.body.airline.image, description: req.body.airline.description, rating: req.body.airline.rating, location: req.body.airline.location, lat: lat, lng: lng};
+        Airline.findByIdAndUpdate(req.params.id, {$set: newData}, function(err, updatedAirline){
+            if(err){
+                req.flash("error", err.message);
+                res.redirect("/airlines");
+            } else {
+                req.flash("success", "Successfully Updated!");
+                res.redirect("/airlines/" + req.params.id);
+            }
+        });
     });
 });
+// router.put("/:id", middleware.checkAirlineOwnership, function(req,res){
+//     Airline.findByIdAndUpdate(req.params.id, req.body.airline, function(err, updatedAirline){
+//         if(err){
+//             res.redirect("/airlines");
+//         } else {
+//             res.redirect("/airlines/" + req.params.id);
+//         }
+//     });
+// });
 
 
 // DESTROY Airline route

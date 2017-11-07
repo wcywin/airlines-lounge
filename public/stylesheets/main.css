@@ -1,3 +1,7 @@
+body {
+    background-color: #f1f2f3;
+}
+
 .thumbnail img {
     width: 100%;
 }
@@ -6,8 +10,17 @@
     padding: 0;
 }
 
+#small-pic {
+    height: 180px;
+}
+
 .thumbnail .caption-full {
     padding: 19px;
+}
+
+.jumbotron {
+    background-color: rgba(85,17,45,0.9);
+    color: #f1f2f3;
 }
 
 .delete-form {
@@ -21,6 +34,11 @@
 .form-width {
     width: 30%;
     margin: 25px auto;
+}
+
+#map {
+    height: 400px;
+    width: 100%;
 }
 
 @media only screen and (max-width: 1200px) and (min-width: 769px){

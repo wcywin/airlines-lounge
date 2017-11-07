@@ -5,6 +5,9 @@ var airlineSchema = new mongoose.Schema({
     rating: String,
     image: String,
     description: String,
+    location: String,
+    lat: Number,
+    lng: Number,
     createdAt: {
         type: Date,
         default: Date.now
