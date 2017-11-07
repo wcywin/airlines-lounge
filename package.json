@@ -9,6 +9,7 @@
   "author": "Wojciech Cywinski",
   "license": "ISC",
   "dependencies": {
+    "async": "^2.6.0",
     "body-parser": "^1.18.2",
     "connect-flash": "^0.1.1",
     "ejs": "^2.5.7",
@@ -18,6 +19,7 @@
     "method-override": "^2.3.10",
     "moment": "^2.19.1",
     "mongoose": "^4.12.4",
+    "nodemailer": "^4.3.1",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^4.4.0"
