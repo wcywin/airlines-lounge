@@ -27,7 +27,7 @@ router.post("/", middleware.isLoggedIn, function(req,res){
      var author = {
          id: req.user._id,
          username: req.user.username
-     }
+     };
      // Geocoder for the maps
      geocoder.geocode(req.body.location, function(err, data){
         var lat = data.results[0].geometry.location.lat;

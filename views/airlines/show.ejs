@@ -20,7 +20,7 @@
                     <h4><a><%= airline.name %></a></h4>
                     <p><%= airline.description %></p>
                     <p>
-                        <em>Created by: <%= airline.author.username %> <%= moment(airline.createdAt).fromNow() %></em>
+                        <em>Created by: <a href="/users/<%= airline.author.id %>"><%= airline.author.username %></a> <%= moment(airline.createdAt).fromNow() %></em>
                     </p>
                     <% if(currentUser && airline.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin) { %>
                         <a class="btn btn-xs btn-warning" href="/airlines/<%= airline._id %>/edit">Edit</a>

@@ -1,0 +1,28 @@
+<% include ../partials/header %>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="thumbnail profile">
+                <h1 class="caption-full"><%= user.firstName + " " + user.lastName %></h1>
+                <img src="<%= user.avatar %>" alt="user profile image">
+                <hr>
+                <p>Choosen nickname: <%= user.username %></p>
+                <!--<div class="caption-full">-->
+                <!--    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio velit quidem in consequatur assumenda placeat, aliquid magnam. A ipsa minus omnis, nostrum amet ex nulla nesciunt necessitatibus ut reprehenderit aut.-->
+                <!--</div>-->
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="thumbnail profile-airlines">
+                <h3>Added airlines:</h3>
+                <hr>
+                <ul>
+                    <% airlines.forEach(function(airline){ %>
+                    <a href="/airlines/<%= airline.id %>"><%= airline.name %></a>
+                    <% }); %>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+<% include ../partials/footer %>
