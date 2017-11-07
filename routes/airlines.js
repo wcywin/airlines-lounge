@@ -7,14 +7,37 @@ var geocoder = require("geocoder");
 
 // index route
 router.get("/", function(req,res){
-    // Get all airlines from DB
-    Airline.find({}, function(err, allAirlines){
-        if(err){
-            console.log(err);
-        } else {
-            res.render("airlines/index", {airlines: allAirlines, currentUser: req.user, page: "airlines"});
-        }
-    });
+    var noMatch = null;
+    if(req.query.search) {
+        const regex = new RegExp(escapeRegex(req.query.search), "gi");
+        Airline.find({name: regex}, function(err, allAirlines){
+            if(err){
+                console.log(err);
+            } else {
+                if(allAirlines.length < 1){
+                    noMatch = "No airlines match that query, please try again.";
+                }
+                res.render("airlines/index", {airlines: allAirlines, currentUser: req.user, page: "airlines", noMatch: noMatch});
+            }
+        });
+     } else {
+        // Get all airlines from DB
+        Airline.find({}, function(err, allAirlines){
+            if(err){
+                console.log(err);
+            } else {
+                res.render("airlines/index", {airlines: allAirlines, currentUser: req.user, page: "airlines", noMatch: noMatch});
+            }
+        });
+    }
+    // // Get all airlines from DB
+    // Airline.find({}, function(err, allAirlines){
+    //     if(err){
+    //         console.log(err);
+    //     } else {
+    //         res.render("airlines/index", {airlines: allAirlines, currentUser: req.user, page: "airlines"});
+    //     }
+    // });
 });
 
 // create route
@@ -127,6 +150,10 @@ router.delete("/:id", middleware.checkAirlineOwnership, function(req,res){
      });
 });
 
+// Regex function for Fuzzy Search
+function escapeRegex(text){
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
 
 
 module.exports = router;
