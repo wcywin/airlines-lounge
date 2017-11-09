@@ -19,6 +19,14 @@ body {
     width: 30%;
     margin: 25px auto;
 }
+
+.navbar-default .navbar-brand {
+    color: #55112d;
+}
+
+.navbar-default .navbar-brand:hover {
+    color: #3e081f;
+}
 /* End of templates forms */
 
 /* Profile page */
@@ -58,9 +66,61 @@ body {
 }
 /* End profile page */
 
+/* Index.ejs - Airlines - general*/
 .jumbotron {
     background-color: rgba(85,17,45,0.9);
     color: #f1f2f3;
+    height: auto;
+    padding: 20px;
+}
+
+.jumbotron h1 {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.bordo {
+    color: #55112d;
+}
+
+.btn-bordo {
+    color: #f8f8f8;
+    background-color: #55112d;
+    border-color: #3e081f;
+}
+
+.btn-bordo:hover {
+    color: #f8f8f8;
+    background-color: #3e081f;
+    border-color: #2c0616;
+}
+
+.btn-bordo-inverse {
+    color: #55112d;
+    background-color: #f8f8f8;
+    border-color: #f1f2f3;
+}
+
+.btn-bordo-inverse:hover {
+    color: #55112d;
+    background-color: #e1e1e1;
+    border-color: #e8e8e8;
+}
+
+.inside-elements {
+    display: inline;
+}
+
+.vertical {
+    vertical-align: middle;
+}
+
+.spacey {
+    margin-top: 15px;
+}
+
+.btn-spacey {
+    margin: 0;
 }
 
 .delete-form {

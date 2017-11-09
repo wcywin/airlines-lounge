@@ -2,6 +2,18 @@ body {
   background-color: #000;
 }
 
+.grouped {
+  background-color: rgba(255,255,255,0.2);
+  color: #fff;
+  padding: 20px;
+}
+
+.grouped h1 {
+  font-size: 60px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
 #landing-header {
   z-index: 1;
   position: relative; /*default static for all element*/
@@ -10,17 +22,26 @@ body {
   padding-top: 70vh;
 }
 
-#landing-header h1 {
-  color: #fff;
-  font-size: 60px;
-  font-weight: 700;
-  padding: 20px;
-  background-color: rgba(255,255,255,0.4);
+#landing-button {
+    background-color: #55112D;
+    color: #f8f8f8;
+    outline: none;
+    border: none;
+    position: relative;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 15px 30px;
+    box-shadow: 0 4px #3E081F;
 }
 
-#landing-button {
-    background-color: black;
-    color: gold;
+#landing-button:hover {
+    box-shadow: 0 2px #3E081F;
+    top: 2px;
+}
+
+#landing-button:active {
+  box-shadow: none;
+  top: 4px;
 }
 
 .slideshow { 
