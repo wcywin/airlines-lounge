@@ -4,7 +4,7 @@ var Airline = require("../models/airline");
 var Comment = require("../models/comment");
 var middleware = require("../middleware");
 
-// Comments new
+// NEW Comment
 router.get("/new", middleware.isLoggedIn, function(req, res) {
     // find airline by id
     Airline.findById(req.params.id, function(err, airline){
@@ -16,7 +16,7 @@ router.get("/new", middleware.isLoggedIn, function(req, res) {
     });
 });
 
-// Comments create
+// CREATE comment
 router.post("/", middleware.isLoggedIn, function(req,res){
     // lookup airline using ID
     Airline.findById(req.params.id, function(err, airline) {
@@ -47,14 +47,21 @@ router.post("/", middleware.isLoggedIn, function(req,res){
     })
 });
 
-// EDIT comment
+// EDIT comment (RETRIEVE)
 router.get("/:comment_id/edit", middleware.checkCommentOwnership, function(req,res){
-    Comment.findById(req.params.comment_id, function(err, foundComment) {
-        if(err){
-            res.redirect("back");
-        } else {
-            res.render("comments/edit", {airline_id: req.params.id, comment: foundComment});
+    Airline.findById(req.params.id, function(err, foundAirline){
+        if(err || !foundAirline){
+            req.flash("error", "Airline not found");
+            return res.redirect("/airlines");
         }
+        Comment.findById(req.params.comment_id, function(err, foundComment) {
+            if(err || !foundComment){
+                req.flash("error", "Comment not found");
+                res.redirect("/airlines");
+            } else {
+                res.render("comments/edit", {airline_id: req.params.id, comment: foundComment});
+            }
+        });
     });
 });
 

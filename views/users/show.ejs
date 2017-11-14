@@ -15,7 +15,7 @@
                 <hr>
                 <ul>
                     <% airlines.forEach(function(airline){ %>
-                    <a href="/airlines/<%= airline.id %>"><%= airline.name %></a>
+                    <li><a href="/airlines/<%= airline.id %>"><%= airline.name %></a></li>
                     <% }); %>
                 </ul>
             </div>

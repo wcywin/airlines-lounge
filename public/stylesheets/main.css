@@ -1,16 +1,17 @@
+/* General CSS */
+html {
+    position: relative;
+    min-height: 100%;
+}
+
 body {
     background-color: #f1f2f3;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
 }
-
-.thumbnail img {
-    width: 100%;
-}
-
-.thumbnail {
-    padding: 0;
-}
-
-/* templates forms */
+/* End General CSS */
+/* -----------------*/
+/* ejs forms */
 .top-form-header {
     text-align: center;
 }
@@ -27,8 +28,8 @@ body {
 .navbar-default .navbar-brand:hover {
     color: #3e081f;
 }
-/* End of templates forms */
-
+/* End of ejs forms */
+/* -----------------*/
 /* Profile page */
 .profile {
     padding: 10px;
@@ -58,15 +59,16 @@ body {
 }
 
 #small-pic {
-    height: 180px;
+    min-height: 180px;
+    height: auto;
 }
 
 .thumbnail .caption-full {
     padding: 19px;
 }
 /* End profile page */
-
-/* Index.ejs - Airlines - general*/
+/* -------------------------*/
+/* Index and Show - Airlines*/
 .jumbotron {
     background-color: rgba(85,17,45,0.9);
     color: #f1f2f3;
@@ -77,6 +79,22 @@ body {
 .jumbotron h1 {
     text-align: center;
     margin-bottom: 25px;
+}
+
+.inline {
+    display: inline;
+}
+
+.equal {
+    line-height: 40px;
+}
+
+.thumbnail img {
+    width: 100%;
+}
+
+.thumbnail {
+    padding: 0;
 }
 
 .bordo {
@@ -107,41 +125,94 @@ body {
     border-color: #e8e8e8;
 }
 
-.inside-elements {
-    display: inline;
-}
-
 .vertical {
     vertical-align: middle;
-}
-
-.spacey {
-    margin-top: 15px;
-}
-
-.btn-spacey {
-    margin: 0;
 }
 
 .delete-form {
     display: inline;
 }
 
+.white {
+    background-color: #fff;
+}
+
+.flex-wrap {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 #map {
     height: 400px;
     width: 100%;
 }
+/* End Index and Show*/
+/* -------------------*/
+/* Footer */
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* fixed height of the footer */
+    height: 60px;
+    background-color: #f8f8f8;
+    text-align: center;
+    font-size: 16px;
+}
 
-@media only screen and (max-width: 1200px) and (min-width: 769px){
+.styled {
+    list-style: none;
+    margin-top: 20px;
+}
+
+.styled li {
+    display: inline;
+    padding: 0 15px;
+    margin-right: 10px;
+    border-right: 1px solid #55112d;
+}
+
+.styled li:last-child {
+    border-right: none;
+}
+/* End of footer */
+/* -------------------*/
+/* Media queries */
+
+@media only screen and (min-width: 771px) and (max-width: 1200px){
     .form-width {
         width: 50%;
         margin: 25px auto;
     }
+    
+    #small-pic {
+        min-height: 160px;
+        height: auto;
+    }
+    
+    .thumbnail {
+        margin-top: 20px;
+    }
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 770px) {
     .form-width {
         width: 60%;
         margin: 25px auto;
+    }
+    
+    .btn-block-small {
+        display: block;
+        width: 100%;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+    
+    #small-pic {
+        height: auto;
+    }
+    
+     .thumbnail {
+        margin-top: 20px;
     }
 }

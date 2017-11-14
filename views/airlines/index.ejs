@@ -3,20 +3,20 @@
     <header class="jumbotron">
         <div class="container">
             <h1>Search the World of Airlines</h1>
-            <p class="inside-elements">
-                <a class="btn btn-lg btn-success pull-right btn-spacey" href="/airlines/new">Add a New Airline</a>
-                <form action="/airlines" method="GET" class="form-inline spacey">
+            <p>
+                <a id="smallsize" class="btn btn-lg btn-success pull-right btn-block-small" href="/airlines/new">Add a New Airline</a>
+                <form action="/airlines" method="GET" class="form-inline equal">
                     <div class="form-group">
-                        <input type="text" name="search" placeholder="Airline search..." class="form-control bordo">
-                        <input type="submit" value="Search" class="btn btn-bordo-inverse">
+                        <input type="text" name="search" placeholder="Airline search..." class="form-control bordo btn-block-small" id="airline-search">
+                        <!--<input type="submit" value="Search" class="btn btn-bordo-inverse btn-block-small">-->
                     </div>
                 </form>
             </p>    
         </div>
     </header>
-    
-    <div class="row text-center" style="display:flex; flex-wrap: wrap;">
-        <div class="col-md-12">
+    <!-- style="display:flex; flex-wrap: wrap;" -->
+    <div class="row text-center flex-wrap" id="airline-grid">
+        <div class="col-md-12 col-xs-12">
             <% if(noMatch !== null) { %>
             <h3><%= noMatch %></h3>
             <% } %>

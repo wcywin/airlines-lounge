@@ -3,7 +3,7 @@
 <!-- sidebar -->
     <div class="row">
         <div class="col-md-3">
-            <p class="btn-block bordo">Airlines Lounge</p>
+            <p class="lead"><%= airline.name %></p>
             <div class="list-group">
                 <li class="list-group-item active">Info 1</li>
                 <li class="list-group-item">Info 2</li>
@@ -30,7 +30,7 @@
                     <% } %>
                 </div>
             </div>
-            <div class="well">
+            <div class="well white">
                 <div class="text-right">
                     <a class="btn btn-success" href="/airlines/<%= airline._id %>/comments/new">Add a New Comment</a>
                 </div>

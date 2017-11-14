@@ -6,6 +6,7 @@ var middleware  = require("../middleware");
 var Airline     = require("../models/airline");
 var async       = require("async");
 var nodemailer  = require("nodemailer");
+var method      = require("method-override");
 var crypto      = require("crypto");
 
 // root route
@@ -51,7 +52,7 @@ router.get("/login", function(req, res) {
     res.render("login", {page: "login"});
 });
 
-// handlign login logic
+// handling login logic
 router.post("/login", passport.authenticate("local", 
     {
         successRedirect: "/airlines",

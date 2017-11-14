@@ -1,5 +1,6 @@
 var Airline = require("../models/airline");
 var Comment = require("../models/comment");
+
 // ====================
 // ALL MIDDLEWARE
 // ====================
@@ -9,7 +10,7 @@ var middlewareObj = {};
 middlewareObj.checkAirlineOwnership = function(req, res, next){
     if(req.isAuthenticated()){
         Airline.findById(req.params.id, function(err, foundAirline){
-            if(err){
+            if(err || !foundAirline){
                 req.flash("error", "Airline not found");
                 res.redirect("/airlines");
             } else {
@@ -32,8 +33,9 @@ middlewareObj.checkAirlineOwnership = function(req, res, next){
 middlewareObj.checkCommentOwnership = function(req, res, next){
     if(req.isAuthenticated()){
         Comment.findById(req.params.comment_id, function(err, foundComment){
-            if(err){
-                res.redirect("back");
+            if(err || !foundComment){
+                req.flash("error", "Comment not found");
+                res.redirect("/airlines");
             } else {
                 // does user own the comment
                 if(foundComment.author.id.equals(req.user._id) || req.user.isAdmin) {

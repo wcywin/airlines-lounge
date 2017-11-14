@@ -5,31 +5,63 @@ var middleware = require("../middleware"); // we don't have to "/index.js" becau
 var geocoder = require("geocoder");
 
 
-// index route
-router.get("/", function(req,res){
+// INDEX route - show all airlines
+router.get("/", function(req, res){
     var noMatch = null;
-    if(req.query.search) {
-        const regex = new RegExp(escapeRegex(req.query.search), "gi");
-        Airline.find({name: regex}, function(err, allAirlines){
+    if(req.query.search && req.xhr) {
+        var regex = new RegExp(escapeRegex(req.query.search), 'gi');
+        // Get all airlines from DB
+        Airline.find({name: regex}, function(err, allAirlines){         
             if(err){
                 console.log(err);
             } else {
                 if(allAirlines.length < 1){
-                    noMatch = "No airlines match that query, please try again.";
-                }
-                res.render("airlines/index", {airlines: allAirlines, currentUser: req.user, page: "airlines", noMatch: noMatch});
+                        noMatch = "No airlines match that query, please try again.";
+                    }
+                res.status(200).json(allAirlines);   
+                // res.render("airlines/index", {airlines: allAirlines, currentUser: req.user, page: "airlines", noMatch: noMatch});
             }
         });
-     } else {
+    } else {
         // Get all airlines from DB
         Airline.find({}, function(err, allAirlines){
             if(err){
                 console.log(err);
             } else {
-                res.render("airlines/index", {airlines: allAirlines, currentUser: req.user, page: "airlines", noMatch: noMatch});
-            }
-        });
+                if(req.xhr) {
+                    res.json(allAirlines);
+                } else {
+                    res.render("airlines/index",{airlines: allAirlines, currentUser: req.user, page: 'airlines', noMatch: noMatch});            
+                    
+                }
+          }
+       });
     }
+});
+// router.get("/", function(req,res){
+//     var noMatch = null;
+//     if(req.query.search) {
+//         const regex = new RegExp(escapeRegex(req.query.search), "gi");
+//         Airline.find({name: regex}, function(err, allAirlines){
+//             if(err){
+//                 console.log(err);
+//             } else {
+//                 if(allAirlines.length < 1){
+//                     noMatch = "No airlines match that query, please try again.";
+//                 }
+//                 res.render("airlines/index", {airlines: allAirlines, currentUser: req.user, page: "airlines", noMatch: noMatch});
+//             }
+//         });
+//      } else {
+//         // Get all airlines from DB
+//         Airline.find({}, function(err, allAirlines){
+//             if(err){
+//                 console.log(err);
+//             } else {
+//                 res.render("airlines/index", {airlines: allAirlines, currentUser: req.user, page: "airlines", noMatch: noMatch});
+//             }
+//         });
+//     }
     // // Get all airlines from DB
     // Airline.find({}, function(err, allAirlines){
     //     if(err){
@@ -38,7 +70,7 @@ router.get("/", function(req,res){
     //         res.render("airlines/index", {airlines: allAirlines, currentUser: req.user, page: "airlines"});
     //     }
     // });
-});
+// });
 
 // create route
 router.post("/", middleware.isLoggedIn, function(req,res){
@@ -67,16 +99,6 @@ router.post("/", middleware.isLoggedIn, function(req,res){
                 res.redirect("/airlines");
             }
         });
-    //  var newAirline = {name: name, rating: rating, image: image, description: desc, author: author};
-    // Create a new Airline and save to DB
-    //  Airline.create(newAirline, function(err, newlyCreated){
-    //      if(err){
-    //          console.log(err);
-    //      } else {
-    //          // redirects back to airlines page
-    //          console.log(newlyCreated);
-    //          res.redirect("/airlines");
-    //      }
     });
 });
 
@@ -89,8 +111,9 @@ router.get("/new", middleware.isLoggedIn, function(req, res) {
 router.get("/:id", function(req,res){
     //find the airline with provided id
     Airline.findById(req.params.id).populate("comments").exec(function(err, foundAirline){
-        if(err){
-            console.log(err);
+        if(err || !foundAirline){
+            req.flash("error", "Airline not found");
+            res.redirect("/airlines");
         } else {
             console.log(foundAirline);
             //render show template of the airline
@@ -99,7 +122,7 @@ router.get("/:id", function(req,res){
     });
 });
 
-// EDIT Airline route
+// EDIT Airline routes
 router.get("/:id/edit", middleware.checkAirlineOwnership, function(req, res) {
     Airline.findById(req.params.id, function(err, foundAirline) {
         if(err){
