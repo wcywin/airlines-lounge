@@ -30,7 +30,6 @@ app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"))
 app.use(methodOverride("_method"));
 app.use(flash()); // must come before the passport config
-// seedDB(); // seed the database
 app.locals.moment = require("moment");
 
 // ====================
@@ -47,10 +46,11 @@ passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.use(function(req, res, next){ // This is the middleware that works for all local files and it uses the user data
+// This is the middleware that works for all local files and it uses the user data
+app.use(function(req, res, next){
     res.locals.currentUser = req.user;
-    res.locals.error = req.flash("error"); // makes it available for all templates under error
-    res.locals.success = req.flash("success"); // makes it available for all templates under success
+    res.locals.error = req.flash("error");
+    res.locals.success = req.flash("success");
     next();
 });
 

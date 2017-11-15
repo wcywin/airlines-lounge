@@ -195,7 +195,7 @@ router.get("/users/:id", function(req, res) {
             res.redirect("back");
         }
         Airline.find().where("author.id").equals(foundUser._id).exec(function(err, airlines){
-            if(err || !airlines){
+            if(err || !foundUser._id){
                 req.flash("error", "Something went wrong...");
                 res.redirect("back");
             }

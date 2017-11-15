@@ -18,7 +18,6 @@ body {
   z-index: 1;
   position: relative; /*default static for all element*/
   text-align: center;
-  /*padding-top: 40vh;*/
   padding-top: 70vh;
 }
 
