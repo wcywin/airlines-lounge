@@ -21,9 +21,9 @@ var commentRoutes       = require("./routes/comments"),
     indexRoutes         = require("./routes/index");
 
 
+mongoose.connect(process.env.DATABASEURL, {useMongoClient: true});
+// mongoose.connect("mongodb://wcywin:Airlines123!@ds111066.mlab.com:11066/airlineslounge", {useMongoClient: true});
 
-// mongoose.connect("mongodb://localhost/airlines", {useMongoClient: true});
-mongoose.connect("mongodb://wcywin:Airlines123!@ds111066.mlab.com:11066/airlineslounge", {useMongoClient: true});
 
 mongoose.Promise = global.Promise;
 app.use(bodyParser.urlencoded({extended: true}));
@@ -31,7 +31,7 @@ app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"))
 app.use(methodOverride("_method"));
 app.use(flash()); // must come before the passport config
-// seedDB(); // seed the databas
+// seedDB(); // seed the database
 app.locals.moment = require("moment");
 
 // ====================
