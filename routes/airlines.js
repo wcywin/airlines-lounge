@@ -19,7 +19,6 @@ router.get("/", function(req, res){
                         noMatch = "No airlines match that query, please try again.";
                     }
                 res.status(200).json(allAirlines);   
-                // res.render("airlines/index", {airlines: allAirlines, currentUser: req.user, page: "airlines", noMatch: noMatch});
             }
         });
     } else {
@@ -38,39 +37,6 @@ router.get("/", function(req, res){
        });
     }
 });
-// router.get("/", function(req,res){
-//     var noMatch = null;
-//     if(req.query.search) {
-//         const regex = new RegExp(escapeRegex(req.query.search), "gi");
-//         Airline.find({name: regex}, function(err, allAirlines){
-//             if(err){
-//                 console.log(err);
-//             } else {
-//                 if(allAirlines.length < 1){
-//                     noMatch = "No airlines match that query, please try again.";
-//                 }
-//                 res.render("airlines/index", {airlines: allAirlines, currentUser: req.user, page: "airlines", noMatch: noMatch});
-//             }
-//         });
-//      } else {
-//         // Get all airlines from DB
-//         Airline.find({}, function(err, allAirlines){
-//             if(err){
-//                 console.log(err);
-//             } else {
-//                 res.render("airlines/index", {airlines: allAirlines, currentUser: req.user, page: "airlines", noMatch: noMatch});
-//             }
-//         });
-//     }
-    // // Get all airlines from DB
-    // Airline.find({}, function(err, allAirlines){
-    //     if(err){
-    //         console.log(err);
-    //     } else {
-    //         res.render("airlines/index", {airlines: allAirlines, currentUser: req.user, page: "airlines"});
-    //     }
-    // });
-// });
 
 // create route
 router.post("/", middleware.isLoggedIn, function(req,res){
@@ -151,15 +117,6 @@ router.put("/:id", middleware.checkAirlineOwnership, function(req, res){
         });
     });
 });
-// router.put("/:id", middleware.checkAirlineOwnership, function(req,res){
-//     Airline.findByIdAndUpdate(req.params.id, req.body.airline, function(err, updatedAirline){
-//         if(err){
-//             res.redirect("/airlines");
-//         } else {
-//             res.redirect("/airlines/" + req.params.id);
-//         }
-//     });
-// });
 
 
 // DESTROY Airline route
