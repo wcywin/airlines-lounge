@@ -21,9 +21,8 @@ var commentRoutes       = require("./routes/comments"),
     indexRoutes         = require("./routes/index");
 
 
-mongoose.connect(process.env.DATABASEURL, {useMongoClient: true});
-// mongoose.connect("mongodb://wcywin:Airlines123!@ds111066.mlab.com:11066/airlineslounge", {useMongoClient: true});
-
+var url = process.env.DATABASEURL || "mongodb://localhost/airlines";
+mongoose.connect(url, {useMongoClient: true});
 
 mongoose.Promise = global.Promise;
 app.use(bodyParser.urlencoded({extended: true}));
@@ -54,13 +53,6 @@ app.use(function(req, res, next){ // This is the middleware that works for all l
     res.locals.success = req.flash("success"); // makes it available for all templates under success
     next();
 });
-
-// var airlines = [
-//         {name: "Emirates", image: "http://imgproc.airliners.net/photos/airliners/5/3/6/4645635.jpg?v=v447142f4cac"},
-//         {name: "Air Berlin", image: "http://imgproc.airliners.net/photos/airliners/3/8/1/4661183.jpg?v=v418abde9484"},
-//         {name: "LOT", image: "http://imgproc.airliners.net/photos/airliners/7/0/6/4487607.jpg?v=v485773631c9"},
-//         {name: "American Airlines", image: "http://imgproc.airliners.net/photos/airliners/5/5/5/4652555.jpg?v=v434a1f3a109"}
-// ];
 
 // ================================
 // EXPORTED DEPENDENCIES TO BE USED
