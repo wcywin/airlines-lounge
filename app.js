@@ -22,7 +22,9 @@ var commentRoutes       = require("./routes/comments"),
 
 
 
-mongoose.connect("mongodb://localhost/airlines", {useMongoClient: true});
+// mongoose.connect("mongodb://localhost/airlines", {useMongoClient: true});
+mongoose.connect("mongodb://wcywin:Airlines123!@ds111066.mlab.com:11066/airlineslounge", {useMongoClient: true});
+
 mongoose.Promise = global.Promise;
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");

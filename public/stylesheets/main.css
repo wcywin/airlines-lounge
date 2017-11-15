@@ -48,14 +48,19 @@ body {
 }
 
 .profile img {
-    padding: 10px;
-    max-height: 250px;
-    width: auto;
+    padding: 50px;
+    /*max-height: 350px;*/
+    /*height: auto;*/
+    /*width: auto;*/
 }
 
 .profile-airlines {
     padding: 10px 20px;
     margin: 0;
+}
+
+.profile-airlines h3 {
+    padding: 10px 20px;
 }
 
 #small-pic {
@@ -192,6 +197,12 @@ body {
     .thumbnail {
         margin-top: 20px;
     }
+    
+    .profile img {
+        padding: 30px;
+        height: auto;
+        width: auto;
+    }
 }
 
 @media only screen and (max-width: 770px) {
@@ -213,5 +224,11 @@ body {
     
      .thumbnail {
         margin-top: 20px;
+    }
+    
+    .profile img {
+        padding: 30px;
+        height: auto;
+        width: auto;
     }
 }
