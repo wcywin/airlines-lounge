@@ -10,8 +10,7 @@ var express             = require("express"),
     methodOverride      = require("method-override"),
     Airline             = require("./models/airline"),
     Comment             = require("./models/comment"),
-    User                = require("./models/user"),
-    seedDB              = require("./seeds");
+    User                = require("./models/user");
     
 // ====================
 // REQUIRING ROUTES
